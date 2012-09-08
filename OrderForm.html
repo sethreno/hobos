@@ -1,0 +1,21 @@
+<html>
+	<body>
+		<form action="/OrderSave" method="post">
+			<table>
+				<tr>
+					<td>Order For</td>
+					<td><input type="text" name="name" /></td>
+				</tr>
+				{% for i in ingredients %}
+				<tr>
+					<td>{{ i }}</td>	
+					<td><input type="checkbox" name="ingredients" 
+						value="{{ i }}" /></td>
+				</tr>
+				{% endfor %}
+			</table>
+			<div><input type="submit" value="Order Hobo" /></div>
+		</form>
+	</body>
+</html>
+

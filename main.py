@@ -1,5 +1,10 @@
 import cgi
 import webapp2
+import jinja2
+import os
+
+jinja_env = jinja2.Environment(
+	loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 from google.appengine.api import users
 from google.appengine.ext import db
@@ -10,27 +15,11 @@ class Order(db.Model):
 
 class OrderForm(webapp2.RequestHandler):
 	def get(self):
-
-		ingredients = ('Rice', 'Turkey', 'Peppers', 'Jalepenos', 'Potatoes', 'Corn', 'Cheese')
-		self.response.out.write("""<html><body>
-		<form action="/OrderSave" method="post">
-			<table><tr>
-				<td>Order For</td>
-				<td><input type="text" name="name" /></td>
-			</tr>""")
-
-		for i in ingredients:
-			self.response.out.write('<tr><td>' + i + '</td>')
-			self.response.out.write('<td><input type="checkbox" name="ingredients" value=' + i + '" /></td></tr>')
-
-		self.response.out.write("""
-			</table>
-			<div><input type="submit" value="Order Hobo" /></div>
-		</form>
-		<br />past orders:
-		""")
-
-		self.response.out.write("""</body></html>""")
+		ingredients = (
+			'Rice', 'Turkey', 'Peppers', 'Jalepenos', 'Potatoes', 'Corn', 'Cheese')
+		vals = {'ingredients': ingredients}
+		t = jinja_env.get_template('OrderForm.html')
+		self.response.out.write(t.render(vals))
 
 class OrderSave(webapp2.RequestHandler):
 	def post(self):
