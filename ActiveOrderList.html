@@ -1,40 +1,36 @@
-<html>
-	<head>
-		<style type="text/css">
-			td, th, table {
-				border: 1px solid;
-				padding: 5px;
-				margin: 0;
-			}
-		</style>
-	</head>
-	<body>
-		<form action="/ViewOpenOrders/Update" method="post">
-			<table cellspacing=0>
-			<thead>
-				<th>name</th>
-				<th>ingredients</th>
-				<th>status</th>
-			</thead>
-			{% for o in orders %}
-			<tr>
-				<td>{{ o.name }}</td>
-				<td><ul><li>{{ '</li><li>'.join(o.ingredients) }}</li></ul></td>
-				<td>
-					<input type="hidden" name="key" value="{{ o.key() }}" />
-					<select name="status">
-					{% for s in statuses %}
-					<option
-						{% if s == o.status %}selected="selected"{% endif %}
-						value="{{ s }}">{{ s }}</option>
-					{% endfor %}
-					</select>
-				</td>
-			</tr>
+{% extends "site.html" %}
+{% block content %}
+<style type="text/css">
+	td, th, table {
+		border-bottom: 1px solid;
+		padding: 5px;
+		margin: 0;
+	}
+</style>
+<form action="/ViewOpenOrders/Update" method="post">
+	<table cellspacing=0>
+	<thead>
+		<th>name</th>
+		<th>ingredients</th>
+		<th>status</th>
+	</thead>
+	{% for o in orders %}
+	<tr>
+		<td>{{ o.name }}</td>
+		<td><ul><li>{{ '</li><li>'.join(o.ingredients) }}</li></ul></td>
+		<td>
+			<input type="hidden" name="key" value="{{ o.key() }}" />
+			<select name="status">
+			{% for s in statuses %}
+			<option
+				{% if s == o.status %}selected="selected"{% endif %}
+				value="{{ s }}">{{ s }}</option>
 			{% endfor %}
-			</table>
-			<div><input type="submit" value="Update" /></div>
-		</form>
-	</body>
-</html>
-
+			</select>
+		</td>
+	</tr>
+	{% endfor %}
+	</table>
+	<div><input type="submit" value="Update" /></div>
+</form>
+{% endblock %}

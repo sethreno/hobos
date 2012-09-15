@@ -1,11 +1,10 @@
-<html>
-	<body>
-		<div>
-			<h1>Thanks for your order {{ o.name }}</h1>
-			<p>Your hobo is currently <b>{{ o.status }}</b>.
-			Refresh the page to see the latest status.
-			</p>
-		</div>
-	</body>
-</html>
+{% extends "site.html" %}
+{% block content %}
+<div>
+	<h1>Thanks for your order {{ o.name }}</h1>
+	<p>Your hobo is currently <b>{{ o.status }}</b>.
+	Refresh the page to see the latest status.
+	</p>
+</div>
+{% endblock %}
 
