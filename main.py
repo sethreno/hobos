@@ -32,11 +32,14 @@ class OrderSave(webapp2.RequestHandler):
 		order.ingredients = self.request.get_all('ingredients')
 		order.status = "queued"
 		order.put()
-		self.redirect('/OrderThanks')
+		self.redirect('/OrderThanks?key=' + str(order.key()))
 
 class OrderThanks(webapp2.RequestHandler):
 	def get(self):
-		self.response.out.write('<html><body>Thanks for your order</body></html>')
+		o = db.get(self.request.get('key'))
+		vals = {'o': o}
+		t = jinja_env.get_template('OrderThanks.html')
+		self.response.out.write(t.render(vals))
 
 class ViewOpenOrders(webapp2.RequestHandler):
 	def get(self):
