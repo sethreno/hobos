@@ -1,20 +1,25 @@
 {% extends "site.html" %}
 {% block content %}
+<div class="well">
 <form action="/OrderSave" method="post">
-	<table>
-		<tr>
-			<td>Order For</td>
-			<td><input type="text" name="name" /></td>
-		</tr>
-		{% for i in ingredients %}
-		<tr>
-			<td>{{ i }}</td>	
-			<td><input type="checkbox" name="ingredients" 
-				value="{{ i }}" /></td>
-		</tr>
-		{% endfor %}
-	</table>
-	<div><input type="submit" value="Order Hobo" /></div>
+	<fieldset>
+		<div class="col-md-12">
+			<label>Order For</label>
+			<input type="text" name="name" />
+		</div>
+		<div class="col-md-12">
+			<div class="btn-group top-buffer" data-toggle="buttons">
+				{% for i in ingredients %}
+				<label class="btn btn-sm btn-info">
+					<input type="checkbox" name="ingredients"
+					value="{{ i }}" /> {{ i }}
+				</label>
+				{% endfor %}
+			</div>
+		</div>
+	</fieldset>
+	<input class="btn btn-lg btn-primary top-buffer" type="submit" value="Submit" />
 </form>
+</div>
 {% endblock %}
 
